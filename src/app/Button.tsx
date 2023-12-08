@@ -12,9 +12,9 @@ const HeroButton = () => {
     <div>
       {status === "loading" && <span className="loader"></span>}
       {status === "authenticated" && (
-        <>
-          <button onClick={() => signOut()}>サインアウト</button>
-        </>
+        <button onClick={() => signOut()} style={{ minWidth: "10rem" }}>
+          サインアウト
+        </button>
       )}
       {status === "unauthenticated" && (
         <>
