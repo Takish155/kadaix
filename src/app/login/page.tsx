@@ -1,13 +1,12 @@
 import React from "react";
-import NavBar from "../NavBar";
 import LoginForm from "./LoginForm";
 import styles from "./style.module.css";
-import Footer from "../Footer";
+import Footer from "../header/Footer";
+import type { Metadata } from "next";
 
 const LoginPage = () => {
   return (
     <>
-      <NavBar page="login" />
       <main>
         <section className={styles.section}>
           <h2 className={styles.h2}>ログイン</h2>
@@ -20,3 +19,8 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
+
+export const metadata: Metadata = {
+  title: "ログイン | KadaiX",
+  description: "KadaiXのログインページです。",
+};
