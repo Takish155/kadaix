@@ -1,13 +1,25 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
+import {
+  FieldErrors,
+  UseFormHandleSubmit,
+  UseFormRegister,
+  UseFormReset,
+  useForm,
+} from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios, { Axios, AxiosError } from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import z from "zod";
 import { signIn } from "next-auth/react";
 
-type ErrorResponse = {
+interface ServerError {
   error: string;
-};
+}
+
+interface ExtendedAxiosError extends AxiosError {
+  response?: AxiosResponse<ServerError>;
+}
 
 const registrationSchema = z.object({
   username: z
@@ -33,6 +45,7 @@ const useRegistrationForm = () => {
   const [months, setMonths] = useState<number[]>([]);
   const [days, setDays] = useState<number[]>([]);
   const [registrationError, setRegistrationError] = useState("");
+  const [profileImage, setProfileImage] = useState("");
 
   useEffect(() => {
     const date = new Date();
@@ -61,7 +74,8 @@ const useRegistrationForm = () => {
     email: string,
     password: string,
     birthDay: string,
-    gender: string
+    gender: string,
+    image: string
   ) => {
     await axios
       .post(
@@ -72,13 +86,14 @@ const useRegistrationForm = () => {
           password: password,
           birthDay: birthDay,
           gender: gender,
+          image: image,
         },
         {
           headers: { "Content-Type": "application/json" },
         }
       )
-      .then(async (response) => {
-        const result = await signIn("credentials", {
+      .then(async (_) => {
+        await signIn("credentials", {
           username,
           password,
           callbackUrl: "/",
@@ -86,7 +101,9 @@ const useRegistrationForm = () => {
         });
       })
       .catch((error) => {
-        setRegistrationError((error as AxiosError).response?.data.error);
+        setRegistrationError(
+          (error as ExtendedAxiosError).response?.data!.error!
+        );
       });
   };
 
@@ -101,7 +118,31 @@ const useRegistrationForm = () => {
     days,
     year,
     registrationError,
+    profileImage,
+    setProfileImage,
   };
+};
+
+export type RegistrationFormStateType = {
+  register: UseFormRegister<RegistrationFormSchema>;
+  handleSubmit: UseFormHandleSubmit<RegistrationFormSchema>;
+  reset: UseFormReset<RegistrationFormSchema>;
+  errors: FieldErrors<RegistrationFormSchema>;
+  fetchData: (
+    username: string,
+    email: string,
+    password: string,
+    birthDay: string,
+    gender: string,
+    image: string
+  ) => void;
+  years: number[];
+  months: number[];
+  days: number[];
+  year: number;
+  registrationError: string;
+  profileImage: string;
+  setProfileImage: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export default useRegistrationForm;

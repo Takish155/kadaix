@@ -1,25 +1,19 @@
 "use client";
 
 import React, { useState } from "react";
-import styles from "./style.module.css";
+import Style from "./style.module.css";
 import Link from "next/link";
-import useRegistrationForm from "./useRegistrationForm";
-
-import dynamic from "next/dynamic";
-
-const selectStyle: React.CSSProperties = {
-  width: "70%",
-  minWidth: "150px",
-  WebkitAppearance: "none",
-};
-
-const containerStyle: React.CSSProperties = {
-  width: "50%",
-  minWidth: "200px",
-};
+import ImageUpload from "./ImageUpload";
+import { UseRegistrationFormContext } from "../context/RegistrationFormContext";
 
 const RegistrationForm = () => {
+  const context = UseRegistrationFormContext();
   const [agree, setAgree] = useState(false);
+  const [imageError, setImageError] = useState("");
+
+  if (!context) {
+    return <p>Loading...</p>;
+  }
   const {
     register,
     handleSubmit,
@@ -29,17 +23,22 @@ const RegistrationForm = () => {
     years,
     months,
     registrationError,
-  } = useRegistrationForm();
+    profileImage,
+  } = context;
   return (
     <form
       onSubmit={handleSubmit((data) => {
-        console.log(data.username);
+        if (profileImage.length === 0) {
+          setImageError("プロファイルをはってくだっさい");
+          return;
+        }
         fetchData(
           data.username,
           data.email,
           data.password,
           `${data.birthYear}-${data.birthMonth}-${data.birthDay}`,
-          data.gender
+          data.gender,
+          profileImage
         );
       })}
     >
@@ -89,23 +88,14 @@ const RegistrationForm = () => {
           <p className="inputError">{errors.password?.message}</p>
         )}
       </div>
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-        }}
-      >
-        <div style={containerStyle}>
+      <div className={Style.birthDaySection}>
+        <div className={Style.containerStyle}>
           <label htmlFor="birthday" className="formLabel">
             生年月日
           </label>
           <div>
             <br />
-            <select
-              className="input"
-              style={selectStyle}
-              {...register("birthYear")}
-            >
+            <select className={Style.selectStyle} {...register("birthYear")}>
               <option value="a">年</option>
               {years.map((year) => (
                 <option key={year} value={year}>
@@ -118,11 +108,7 @@ const RegistrationForm = () => {
             )}
           </div>
           <div>
-            <select
-              className="input"
-              style={selectStyle}
-              {...register("birthMonth")}
-            >
+            <select className={Style.selectStyle} {...register("birthMonth")}>
               <option value="">月</option>
               {months.map((month) => (
                 <option key={month} value={month}>
@@ -135,11 +121,7 @@ const RegistrationForm = () => {
             )}
           </div>
           <div>
-            <select
-              className="input"
-              style={selectStyle}
-              {...register("birthDay")}
-            >
+            <select className={Style.selectStyle} {...register("birthDay")}>
               <option value="">日</option>
               {days.map((day) => (
                 <option key={day} value={day}>
@@ -152,17 +134,23 @@ const RegistrationForm = () => {
             )}
           </div>
         </div>
-        <div style={containerStyle}>
+        <div className={Style.containerStyle}>
           <label htmlFor="gender" className="formLabel">
             性別
           </label>
-          <select className="input" style={selectStyle} {...register("gender")}>
+          <select className={Style.selectStyle} {...register("gender")}>
             <option value="male">男性</option>
             <option value="female">女性</option>
           </select>
           {errors.gender?.message && (
             <p className="inputError">{errors.gender.message}</p>
           )}
+        </div>
+        <div>
+          <label className="formLabel">プロフィール</label>
+          <br />
+          <ImageUpload />
+          {imageError && <p className="inputError">{imageError}</p>}
         </div>
       </div>
       <div>
@@ -171,9 +159,9 @@ const RegistrationForm = () => {
           type="checkbox"
           name="agreePolicy"
           id="agreePolicy"
-          className={styles.policyCheckBox}
+          className={Style.policyCheckBox}
         />
-        <label htmlFor="agreePolicy" className={styles.policy}>
+        <label htmlFor="agreePolicy" className={Style.policy}>
           <span>KadaiX</span>
           への登録には、
           <Link
@@ -191,6 +179,7 @@ const RegistrationForm = () => {
         className="button"
         style={{ marginTop: "2rem" }}
         disabled={!agree}
+        type="submit"
       >
         登録
       </button>

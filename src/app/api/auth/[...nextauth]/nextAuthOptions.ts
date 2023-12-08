@@ -23,6 +23,7 @@ export const nextAuthOptions: NextAuthOptions = {
 
         const user = await prisma.user.findUnique({
           where: { username: credentials?.username },
+          include: { accounts: true },
         });
 
         if (!user) {
@@ -34,7 +35,7 @@ export const nextAuthOptions: NextAuthOptions = {
           user.hashedPassword
         );
 
-        return passwordMatch ? user : null;
+        return passwordMatch ? { ...user, username: user.username } : null;
       },
     }),
   ],

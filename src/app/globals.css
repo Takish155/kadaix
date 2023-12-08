@@ -1,6 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 :root {
   --primary-color: #272643;
@@ -37,6 +37,7 @@ html {
 header {
   display: flex;
   position: sticky;
+  flex-wrap: wrap;
   background-color: var(--primary-color);
   top: 1;
   justify-content: space-evenly;
@@ -109,7 +110,10 @@ h1 {
   margin-bottom: 2rem;
 }
 
-.homeHeroPageSection span,
+.homeHeroPageSection span {
+  text-decoration: underline;
+}
+
 form span {
   color: var(--quinary-color);
 }
@@ -205,4 +209,24 @@ footer h1 {
 
 footer p {
   font-size: 1.3rem;
+}
+
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 5px solid #fff;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

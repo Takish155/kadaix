@@ -1,18 +1,17 @@
 "use client";
 
-import React, { useState } from "react";
-import useLoginForm from "./useLoginForm";
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import React from "react";
+import useLoginForm from "../custom_hooks/useLoginForm";
+import Style from "./style.module.css";
 
 const LoginForm = () => {
   const { register, errors, handleSubmit, handleLogin, error } = useLoginForm();
-  const router = useRouter();
   return (
     <form
       onSubmit={handleSubmit((data) => {
         handleLogin(data.username, data.password);
       })}
+      className={Style.loginForm}
     >
       {error && <p className="formError">{error}</p>}
       <div>
@@ -25,7 +24,6 @@ const LoginForm = () => {
           id="username"
           className="input"
           {...register("username", { required: true })}
-          style={{ maxWidth: "20rem" }}
         />
         {errors.username?.message && (
           <p className="inputError">{errors.username.message}</p>
@@ -41,7 +39,6 @@ const LoginForm = () => {
           id="password"
           className="input"
           {...register("password", { required: true })}
-          style={{ maxWidth: "20rem" }}
         />
         {errors.password?.message && (
           <p className="inputError">{errors.password.message}</p>

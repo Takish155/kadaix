@@ -14,6 +14,13 @@ export async function POST(request: NextRequest) {
     });
   }
 
+  if (body.image.length === 0) {
+    return NextResponse.json(
+      { error: "プロフィールを張ってください。" },
+      { status: 400 }
+    );
+  }
+
   const existingUser = await prisma.user.findUnique({
     where: { username: body.username },
   });
@@ -44,6 +51,7 @@ export async function POST(request: NextRequest) {
       hashedPassword: hashedPassword,
       birthday: body.birthDay,
       gender: body.gender,
+      image: body.image,
     },
   });
 
