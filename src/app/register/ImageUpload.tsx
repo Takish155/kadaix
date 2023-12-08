@@ -13,7 +13,7 @@ const ImageUpload = () => {
   const context = UseRegistrationFormContext();
 
   if (!context) {
-    return <p>Loading...</p>;
+    return <span className="loader"></span>;
   }
   const { setProfileImage, profileImage } = context;
 

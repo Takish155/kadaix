@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "../../../../prisma/prisma";
 import bcrypt from "bcrypt";
 
-import { registrationSchema } from "./registrationSchema";
+import { registrationSchema } from "../../schema_and_types/registrationRouteSchema";
 
 export async function POST(request: NextRequest) {
   const body = await request.json();

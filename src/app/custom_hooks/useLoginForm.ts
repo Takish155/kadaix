@@ -2,20 +2,10 @@
 
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-
-const schema = z.object({
-  username: z.string().min(6, { message: "正しいユーザIDを入力してください" }),
-  password: z
-    .string()
-    .min(6, { message: "正しいパスワードを入力してください" })
-    .max(20, { message: "正しいパスワードを入力してください" }),
-});
-
-type TransactionFormData = z.infer<typeof schema>;
+import { TransactionFormData, schema } from "../schema_and_types/loginSchema";
 
 const useLoginForm = () => {
   const [error, setError] = useState("");

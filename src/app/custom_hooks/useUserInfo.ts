@@ -4,22 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-
-export type UserInfoDataType = {
-  id: string;
-  name: string;
-  email: string;
-  username: string;
-  birthday: string;
-  gender: string;
-  image: string;
-  info: string;
-  createdAt: string;
-};
-
-export type FetchUserInfoDataType = {
-  user: UserInfoDataType;
-};
+import { FetchUserInfoDataType } from "../schema_and_types/useUserInfoType";
 
 export const useUserInfo = () => {
   const { data: session, status } = useSession();
@@ -54,10 +39,4 @@ export const useUserInfo = () => {
   });
 
   return { data, isLoading, isError };
-};
-
-export type UserInfoStateType = {
-  data: UserInfoDataType | undefined;
-  isLoading: boolean;
-  isError: boolean;
 };

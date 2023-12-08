@@ -1,17 +1,16 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import {
-  FieldErrors,
-  UseFormHandleSubmit,
-  UseFormRegister,
-  UseFormReset,
-  useForm,
-} from "react-hook-form";
+import { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios, { AxiosError, AxiosResponse } from "axios";
-import z from "zod";
 import { signIn } from "next-auth/react";
+import {
+  RegistrationFormSchema,
+  registrationSchema,
+} from "../schema_and_types/registrationSchema";
+
+import { FetchDataType } from "../schema_and_types/useRegistrationFormType";
 
 interface ServerError {
   error: string;
@@ -20,24 +19,6 @@ interface ServerError {
 interface ExtendedAxiosError extends AxiosError {
   response?: AxiosResponse<ServerError>;
 }
-
-const registrationSchema = z.object({
-  username: z
-    .string()
-    .min(4, { message: "ユーザIDは少なくとも6文字以上を入力してください。" }),
-  email: z
-    .string()
-    .email({ message: "正しいメールアドレスを入力してください。" }),
-  password: z
-    .string()
-    .min(6, { message: "パスワードは少なくとも6文字以上を入力してください。" }),
-  birthDay: z.string().min(2, { message: "日を選んでください。" }),
-  birthMonth: z.string().min(1, { message: "月を選んでください。" }),
-  birthYear: z.string().min(2, { message: "年を選んでください。" }),
-  gender: z.enum(["male", "female"]),
-});
-
-type RegistrationFormSchema = z.infer<typeof registrationSchema>;
 
 const useRegistrationForm = () => {
   const [year, setYear] = useState(1923);
@@ -69,24 +50,17 @@ const useRegistrationForm = () => {
     resolver: zodResolver(registrationSchema),
   });
 
-  const fetchData = async (
-    username: string,
-    email: string,
-    password: string,
-    birthDay: string,
-    gender: string,
-    image: string
-  ) => {
+  const fetchData = async (data: FetchDataType) => {
     await axios
       .post(
-        "http://localhost:3000/api/register",
+        "../api/register",
         {
-          username: username,
-          email: email,
-          password: password,
-          birthDay: birthDay,
-          gender: gender,
-          image: image,
+          username: data.username,
+          email: data.email,
+          password: data.password,
+          birthDay: data.birthDay,
+          gender: data.gender,
+          image: data.image,
         },
         {
           headers: { "Content-Type": "application/json" },
@@ -94,8 +68,8 @@ const useRegistrationForm = () => {
       )
       .then(async (_) => {
         await signIn("credentials", {
-          username,
-          password,
+          username: data.username,
+          password: data.password,
           callbackUrl: "/",
           redirect: true,
         });
@@ -121,28 +95,6 @@ const useRegistrationForm = () => {
     profileImage,
     setProfileImage,
   };
-};
-
-export type RegistrationFormStateType = {
-  register: UseFormRegister<RegistrationFormSchema>;
-  handleSubmit: UseFormHandleSubmit<RegistrationFormSchema>;
-  reset: UseFormReset<RegistrationFormSchema>;
-  errors: FieldErrors<RegistrationFormSchema>;
-  fetchData: (
-    username: string,
-    email: string,
-    password: string,
-    birthDay: string,
-    gender: string,
-    image: string
-  ) => void;
-  years: number[];
-  months: number[];
-  days: number[];
-  year: number;
-  registrationError: string;
-  profileImage: string;
-  setProfileImage: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export default useRegistrationForm;

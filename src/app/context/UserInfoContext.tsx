@@ -1,7 +1,8 @@
 "use client";
 
 import React, { createContext, ReactNode, useContext } from "react";
-import { UserInfoStateType, useUserInfo } from "../custom_hooks/useUserInfo";
+import { useUserInfo } from "../custom_hooks/useUserInfo";
+import { UserInfoStateType } from "../schema_and_types/useUserInfoType";
 
 const UserInfoContext = createContext<UserInfoStateType | undefined>(undefined);
 
