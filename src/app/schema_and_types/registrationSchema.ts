@@ -10,7 +10,7 @@ export const registrationSchema = z.object({
   password: z
     .string()
     .min(6, { message: "パスワードは少なくとも6文字以上を入力してください。" }),
-  birthDay: z.string().min(2, { message: "日を選んでください。" }),
+  birthDay: z.string().min(1, { message: "日を選んでください。" }),
   birthMonth: z.string().min(1, { message: "月を選んでください。" }),
   birthYear: z.string().min(1, { message: "年を選んでください。" }),
   gender: z.enum(["male", "female"]),
