@@ -33,7 +33,7 @@ const ImageUpload = () => {
         options={{
           sources: ["local"],
           multiple: false,
-          maxFileSize: 1000000,
+          maxFileSize: 10000000,
           language: "ja",
         }}
         onUpload={(result, _) => {
