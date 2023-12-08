@@ -32,14 +32,14 @@ const RegistrationForm = () => {
           setImageError("プロファイルをはってくだっさい");
           return;
         }
-        fetchData(
-          data.username,
-          data.email,
-          data.password,
-          `${data.birthYear}-${data.birthMonth}-${data.birthDay}`,
-          data.gender,
-          profileImage
-        );
+        fetchData({
+          username: data.username,
+          email: data.email,
+          password: data.password,
+          birthDay: `${data.birthYear}-${data.birthMonth}-${data.birthDay}`,
+          gender: data.gender,
+          image: profileImage,
+        });
       })}
     >
       {registrationError && <p className="formError">{registrationError}</p>}

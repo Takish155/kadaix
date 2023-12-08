@@ -20,14 +20,7 @@ export type RegistrationFormStateType = {
   handleSubmit: UseFormHandleSubmit<RegistrationFormSchema>;
   reset: UseFormReset<RegistrationFormSchema>;
   errors: FieldErrors<RegistrationFormSchema>;
-  fetchData: (
-    username: string,
-    email: string,
-    password: string,
-    birthDay: string,
-    gender: string,
-    image: string
-  ) => void;
+  fetchData: (data: FetchDataType) => void;
   years: number[];
   months: number[];
   days: number[];

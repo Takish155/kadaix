@@ -1,9 +1,8 @@
 "use client";
 
 import React, { createContext, ReactNode, useContext } from "react";
-import useRegistrationForm, {
-  RegistrationFormStateType,
-} from "../custom_hooks/useRegistrationForm";
+import { RegistrationFormStateType } from "../schema_and_types/useRegistrationFormType";
+import useRegistrationForm from "../custom_hooks/useRegistrationForm";
 
 const RegistrationFormContext = createContext<
   RegistrationFormStateType | undefined
