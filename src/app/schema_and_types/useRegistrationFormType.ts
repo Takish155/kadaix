@@ -5,6 +5,7 @@ import {
   UseFormReset,
 } from "react-hook-form";
 import { RegistrationFormSchema } from "./registrationSchema";
+import { Dispatch, SetStateAction } from "react";
 
 export type FetchDataType = {
   username: string;
@@ -28,4 +29,6 @@ export type RegistrationFormStateType = {
   registrationError: string;
   profileImage: string;
   setProfileImage: React.Dispatch<React.SetStateAction<string>>;
+  loading: boolean;
+  setLoading: Dispatch<SetStateAction<boolean>>;
 };

@@ -33,12 +33,16 @@ const RegistrationForm = () => {
     months,
     registrationError,
     profileImage,
+    loading,
+    setLoading,
   } = context;
   return (
     <form
       onSubmit={handleSubmit((data) => {
+        setLoading(true);
         if (profileImage.length === 0) {
           setImageError("プロファイルをはってくだっさい");
+          setLoading(false);
           return;
         }
         fetchData({
@@ -184,14 +188,18 @@ const RegistrationForm = () => {
         </label>
       </div>
       {!agree && <p className="formError">規約を同意してください。</p>}
-      <button
-        className="button"
-        style={{ marginTop: "2rem" }}
-        disabled={!agree}
-        type="submit"
-      >
-        登録
-      </button>
+      {!loading ? (
+        <button
+          className="button"
+          style={{ marginTop: "2rem" }}
+          disabled={!agree}
+          type="submit"
+        >
+          登録
+        </button>
+      ) : (
+        <span className="loader"></span>
+      )}
     </form>
   );
 };

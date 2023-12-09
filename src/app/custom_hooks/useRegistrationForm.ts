@@ -27,6 +27,7 @@ const useRegistrationForm = () => {
   const [days, setDays] = useState<number[]>([]);
   const [registrationError, setRegistrationError] = useState("");
   const [profileImage, setProfileImage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const date = new Date();
@@ -73,12 +74,14 @@ const useRegistrationForm = () => {
           callbackUrl: "/",
           redirect: true,
         });
+        setLoading(false);
       })
       .catch((error) => {
         setRegistrationError(
           (error as ExtendedAxiosError).response?.data!.error!
         );
         window.scrollTo({ top: 0, behavior: "smooth" });
+        setLoading(false);
       });
   };
 
@@ -95,6 +98,8 @@ const useRegistrationForm = () => {
     registrationError,
     profileImage,
     setProfileImage,
+    loading,
+    setLoading,
   };
 };
 

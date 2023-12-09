@@ -9,6 +9,7 @@ import { TransactionFormData, schema } from "../schema_and_types/loginSchema";
 
 const useLoginForm = () => {
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -30,6 +31,7 @@ const useLoginForm = () => {
     if (result?.error) {
       setError("ユーザID・パスワードが一致しません。");
       window.scrollTo({ top: 0, behavior: "smooth" });
+      setLoading(false);
     } else {
       router.push("/");
     }
@@ -43,6 +45,8 @@ const useLoginForm = () => {
     error,
     setError,
     handleLogin,
+    loading,
+    setLoading,
   };
 };
 

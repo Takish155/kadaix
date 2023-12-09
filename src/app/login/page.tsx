@@ -9,7 +9,6 @@ const LoginPage = () => {
     <>
       <main>
         <section className={styles.section}>
-          <h2 className={styles.h2}>ログイン</h2>
           <LoginForm />
         </section>
       </main>
