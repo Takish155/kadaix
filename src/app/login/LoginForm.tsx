@@ -74,7 +74,10 @@ const LoginForm = () => {
             ログイン
           </button>
         ) : (
-          <span className="loader" style={{ color: "#272643" }}></span>
+          <span
+            className="loader"
+            style={{ border: "5px solid #272643" }}
+          ></span>
         )}
       </form>
     </>
