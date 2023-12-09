@@ -17,7 +17,7 @@ const LoginForm = () => {
   }
 
   if (status === "unauthenticated") {
-    router.push("/home");
+    router.push("/");
   }
 
   return (

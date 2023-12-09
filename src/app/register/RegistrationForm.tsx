@@ -20,7 +20,7 @@ const RegistrationForm = () => {
   }
 
   if (status === "authenticated") {
-    router.push("/home");
+    router.push("/");
   }
 
   const {
