@@ -4,7 +4,7 @@ import React from "react";
 import useLoginForm from "../custom_hooks/useLoginForm";
 import Style from "./style.module.css";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
   const { register, errors, handleSubmit, handleLogin, error } = useLoginForm();
