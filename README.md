@@ -3,6 +3,7 @@
 
 <h2>目標</h2>
 <p>このウェブサイトは、ログイン/登録システムにだけ注力しているわけではなく、パフォーマンスにも重点を置いています。</p>
+<a href="https://pagespeed.web.dev/analysis/https-kadaix-vercel-app/nbu9jh4gqp?form_factor=desktop">PageSpeed Insights｜パフォーマンス検査の結果はこちら</a>
 
 <h2>認証機能について</h2>
 <p>私はこのアプリケーションの開発において、データベースとしてMongoDBを、セッションの処理にはNextAuthを、パスワードの暗号化にはBcryptを、データベースへの接続にはPrismaを使用しました。</p>
