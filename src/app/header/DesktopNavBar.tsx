@@ -18,19 +18,19 @@ const DesktopNavBar = () => {
         <>
           <Link
             href="/"
-            className={path === "home" ? "navLinkCurrent" : "navLink"}
+            className={path === "/" ? "navLinkCurrent" : "navLink"}
           >
             ホーム
           </Link>
           <Link
             href="/login"
-            className={path === "login" ? "navLinkCurrent" : "navLink"}
+            className={path === "/login" ? "navLinkCurrent" : "navLink"}
           >
             ログイン
           </Link>
           <Link
             href="/register"
-            className={path === "register" ? "navLinkCurrent" : "navLink"}
+            className={path === "/register" ? "navLinkCurrent" : "navLink"}
           >
             登録
           </Link>

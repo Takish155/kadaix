@@ -9,7 +9,13 @@ import Style from "./Style.module.css";
 import Image from "next/image";
 
 const AccountNav = () => {
-  const { data, isError } = UseUserInfoContext() || {};
+  const context = UseUserInfoContext();
+
+  if (!context) {
+    return <span className="loader"></span>;
+  }
+
+  const { isError, data } = context;
 
   if (isError) {
     return <p>Error</p>;
@@ -17,18 +23,19 @@ const AccountNav = () => {
 
   return (
     <nav className={Style.accountNav}>
-      {data?.image.length !== 0 ? (
-        <CldImage
-          src={data?.image!}
-          alt="ユーザーのプロファイル"
+      {data?.image.length === 0 && (
+        <Image
+          alt="Empty image"
+          src={image}
           width={60}
           height={60}
           className={Style.profilePicture}
         />
-      ) : (
-        <Image
-          alt="Empty image"
-          src={image}
+      )}
+      {data?.image.length !== 0 && (
+        <CldImage
+          src={data?.image!}
+          alt="ユーザーのプロファイル"
           width={60}
           height={60}
           className={Style.profilePicture}
