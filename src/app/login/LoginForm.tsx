@@ -16,7 +16,7 @@ const LoginForm = () => {
     return <span className="loader"></span>;
   }
 
-  if (status === "unauthenticated") {
+  if (status === "authenticated") {
     router.push("/");
   }
 
