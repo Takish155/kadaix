@@ -1,36 +1,21 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1>Kadai X - フロントエンドコーディング課題 | ユーザー登録機能</h1>
+<p>URL:   <a href="https://kadaix.vercel.app/" target="_blank">https://kadaix.vercel.app/</a></p>
 
-## Getting Started
+<h2>目標</h2>
+<p>このウェブサイトは、ログイン/登録システムにだけ注力しているわけではなく、パフォーマンスにも重点を置いています。</p>
+<a href="https://pagespeed.web.dev/analysis/https-kadaix-vercel-app/nbu9jh4gqp?form_factor=desktop">PageSpeed Insights｜パフォーマンス検査の結果はこちら</a>
 
-First, run the development server:
+<h2>認証機能について</h2>
+<p>私はこのアプリケーションの開発において、データベースとしてMongoDBを、セッションの処理にはNextAuthを、パスワードの暗号化にはBcryptを、データベースへの接続にはPrismaを使用しました。</p>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<h2>使用したライブラリ</h2>
+<ul>
+  <li>Next Auth</li>
+  <li>Prisma</li>
+  <li>Tanstack Query</li>
+  <li>Axios</li>
+  <li>Bcrypt</li>
+  <li>Cloudinary</li>
+  <li>React Hook Form</li>
+  <li>Zod</li>
+</ul>
