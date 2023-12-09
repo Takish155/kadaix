@@ -74,7 +74,7 @@ const LoginForm = () => {
             ログイン
           </button>
         ) : (
-          <span className="loader"></span>
+          <span className="loader" style={{ color: "#272643" }}></span>
         )}
       </form>
     </>
