@@ -3,9 +3,23 @@
 import React from "react";
 import useLoginForm from "../custom_hooks/useLoginForm";
 import Style from "./style.module.css";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 const LoginForm = () => {
   const { register, errors, handleSubmit, handleLogin, error } = useLoginForm();
+  const { status } = useSession();
+
+  const router = useRouter();
+
+  if (status === "loading") {
+    return <span className="loader"></span>;
+  }
+
+  if (status === "unauthenticated") {
+    router.push("/home");
+  }
+
   return (
     <form
       onSubmit={handleSubmit((data) => {

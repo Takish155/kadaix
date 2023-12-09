@@ -5,15 +5,24 @@ import Style from "./style.module.css";
 import Link from "next/link";
 import ImageUpload from "./ImageUpload";
 import { UseRegistrationFormContext } from "../context/RegistrationFormContext";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 const RegistrationForm = () => {
-  const context = UseRegistrationFormContext();
   const [agree, setAgree] = useState(false);
+  const { status } = useSession();
   const [imageError, setImageError] = useState("");
+  const context = UseRegistrationFormContext();
+  const router = useRouter();
 
-  if (!context) {
-    return <p>Loading...</p>;
+  if (!context || status === "loading") {
+    return <span className="loader"></span>;
   }
+
+  if (status === "authenticated") {
+    router.push("/home");
+  }
+
   const {
     register,
     handleSubmit,

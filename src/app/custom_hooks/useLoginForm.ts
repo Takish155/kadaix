@@ -29,6 +29,7 @@ const useLoginForm = () => {
     });
     if (result?.error) {
       setError("ユーザID・パスワードが一致しません。");
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
       router.push("/");
     }

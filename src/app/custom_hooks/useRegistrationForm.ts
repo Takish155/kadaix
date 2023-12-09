@@ -78,6 +78,7 @@ const useRegistrationForm = () => {
         setRegistrationError(
           (error as ExtendedAxiosError).response?.data!.error!
         );
+        window.scrollTo({ top: 0, behavior: "smooth" });
       });
   };
 
